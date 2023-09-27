@@ -2,10 +2,12 @@
   "name": "postgres-prisma",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
+    "dev": "tsx watch src/index.ts --on-error \"echo 'Error: Please fix the errors above' && exit 1\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -16,6 +18,14 @@
     "sequelize": "^6.33.0"
   },
   "devDependencies": {
-    "prettier": "3.0.3"
+    "@trivago/prettier-plugin-sort-imports": "^4.2.0",
+    "@types/express": "^4.17.18",
+    "@types/node": "^20.7.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
+    "eslint": "^8.50.0",
+    "prettier": "3.0.3",
+    "tsx": "^3.13.0",
+    "typescript": "^5.2.2"
   }
 }

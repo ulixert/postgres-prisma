@@ -1,7 +1,10 @@
-const { Sequelize, QueryTypes } = require('sequelize');
-require('dotenv').config();
+import { Sequelize, QueryTypes } from 'sequelize';
 
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const sequelize = new Sequelize(process.env.DATABASE_URL!, {
   dialectOptions: {
     ssl: {
       require: true,
