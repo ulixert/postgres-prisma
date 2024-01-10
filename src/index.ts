@@ -1,29 +1,7 @@
-import { Sequelize, QueryTypes } from 'sequelize';
+import { app } from './app.js';
 
-import dotenv from 'dotenv';
+const PORT = process.env.PORT ?? 3001;
 
-dotenv.config();
-
-const sequelize = new Sequelize(process.env.DATABASE_URL!, {
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
 });
-
-const main = async () => {
-  try {
-    await sequelize.authenticate();
-    const notes = await sequelize.query('SELECT * FROM notes', {
-      type: QueryTypes.SELECT,
-    });
-    console.log(notes);
-    void sequelize.close();
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
-};
-
-void main();

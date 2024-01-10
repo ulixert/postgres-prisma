@@ -1,5 +1,11 @@
+node_modules
+.git
+.gitignore
+Dockerfile
+.dockerignore
+data
+
 # Logs
-logs
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,14 +13,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-data
-drizzle
 dist-ssr
 *.local
 *.local.md
-.env
 *.env.json
 
 # Editor directories and files
