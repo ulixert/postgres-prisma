@@ -1,9 +1,37 @@
+### Get all users
+GET {{api}}/users
+
 ### Create a new user
 POST {{api}}/users
 Content-Type: application/json
 
 {
-  "name": "John Doe",
-  "email": 12,
-  "age": "25"
+  "name": "Sally",
+  "email": "saleem_ea9@gmail.com",
+  "age": 15,
+  "writtenPosts": {
+    "create": [
+      {
+        "title": "My first post",
+        "averageRating": 4.5
+      },
+      {
+        "title": "My second post",
+        "averageRating": 3.5
+      }
+    ]
+  }
 }
+
+### Update a user
+PATCH {{api}}/users/a5e5630c-0556-4642-9983-4d182476834d
+Content-Type: application/json
+
+{
+  "userPreference": {
+    "create": {
+      "emailUpdates": true
+    }
+  }
+}
+

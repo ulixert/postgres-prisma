@@ -5,25 +5,21 @@ import { ZodError } from 'zod';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const errorMiddleware: ErrorRequestHandler = (err, _, res, __) => {
   if (err instanceof ZodError) {
-    const errors = err.errors.map((error) => ({
-      field: error.path.join('.'),
-      message: error.message,
-    }));
-
+    console.error(err);
     res.status(400).json({
       status: 'fail',
-      message: '💥Validation failed',
-      data: {
-        errors,
-      },
+      message: '💥Zod Validation failed',
+      error: err.errors,
     });
     return;
   }
 
   if (err instanceof Error) {
+    console.error(err.message);
     res.status(404).json({
       status: 'fail',
       message: err.message,
+      error: err.message.split('\n').at(-1),
     });
     return;
   }

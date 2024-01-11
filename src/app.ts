@@ -51,4 +51,90 @@ app.post('/api/v1/users', async (req, res, next) => {
   }
 });
 
+app.get('/api/v1/users', async (_, res, next) => {
+  try {
+    const users = await prisma.post.findMany({
+      where: {
+        author: {
+          is: {
+            age: 15,
+          },
+        },
+      },
+    });
+
+    if (users.length === 0) {
+      throw new Error('No users found');
+    }
+
+    res.status(200).json({
+      status: 'success',
+      count: users.length,
+      data: {
+        users,
+      },
+    });
+  } catch (e) {
+    next(e);
+  }
+});
+
+app.patch('/api/v1/users/:id', async (_, res, next) => {
+  try {
+    // const userData = UserUpdateInputSchema.parse(req.body);
+    const user = await prisma.user.update({
+      where: {
+        email: 'saleem_lockea9@attend.wnb',
+      },
+      data: {
+        userPreference: {
+          disconnect: true,
+        },
+      },
+    });
+
+    // const user = await prisma.user.findFirst({
+    //   where: {
+    //     name: 'John',
+    //     userPreference: {
+    //       emailUpdates: false,
+    //     },
+    //   },
+    //   include: {
+    //     userPreference: true,
+    //   },
+    // });
+
+    res.status(200).json({
+      status: 'success',
+      message: 'User updated',
+      data: {
+        user,
+      },
+    });
+  } catch (e) {
+    next(e);
+  }
+});
+
+app.delete('/api/v1/users/:id', async (_, res, next) => {
+  try {
+    const user = await prisma.user.delete({
+      where: {
+        email: '',
+      },
+    });
+
+    res.status(200).json({
+      status: 'success',
+      message: 'User deleted',
+      data: {
+        user,
+      },
+    });
+  } catch (e) {
+    next(e);
+  }
+});
+
 app.use(errorMiddleware);
