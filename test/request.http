@@ -1,0 +1,9 @@
+### Create a new user
+POST {{api}}/users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": 12,
+  "age": "25"
+}
