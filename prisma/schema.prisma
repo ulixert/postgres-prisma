@@ -5,7 +5,59 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator zod {
+  provider                  = "zod-prisma-types"
+  createRelationValuesTypes = true
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String          @id @default(uuid())
+  name           String?
+  age            Int
+  email          String          @unique
+  role           Role            @default(BASIC)
+  writtenPosts   Post[]          @relation("WrittenPosts")
+  favoritePosts  Post[]          @relation("FavoritePosts")
+  userPreference UserPreference?
+
+  @@unique([name, age])
+  @@index([email])
+}
+
+model UserPreference {
+  id           String  @id @default(uuid())
+  emailUpdates Boolean
+  User         User?   @relation(fields: [userId], references: [id])
+  userId       String? @unique
+}
+
+model Post {
+  id            Int        @id @default(autoincrement())
+  title         String
+  averageRating Float
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  author        User       @relation("WrittenPosts", fields: [authorId], references: [id])
+  authorId      String
+  favoritedBy   User?      @relation("FavoritePosts", fields: [favoritedById], references: [id])
+  favoritedById String?
+  categories    Category[]
+
+  // @@id([title, authorId])
+}
+
+model Category {
+  id    String @id @default(uuid())
+  name  String @unique
+  posts Post[]
+}
+
+enum Role {
+  BASIC
+  ADMIN
 }
