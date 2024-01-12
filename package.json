@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "tsx watch --env-file=.env src/index.ts --on-error \"echo 'Error: Please fix the errors above' && exit 1\""
+    "dev": "tsx src/index.ts"
   },
   "type": "module",
   "keywords": [],
